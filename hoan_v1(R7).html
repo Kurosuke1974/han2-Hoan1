@@ -123,6 +123,8 @@
         .batsu { background-color: #3d5afe; }
         .ox-btn:disabled { opacity: 0.3; cursor: not-allowed; }
         #question { font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; min-height: 80px; text-align: left; line-height: 1.6; padding: 0 10px; display: flex; align-items: center; }
+        
+        /* 修正箇所：解説コンテナのスタイル設定を統一 */
         #explanation-container { display: none; background-color: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #fcc419; text-align: left; margin-top: 15px; font-size: 0.95rem; }
         #nextBtn { margin-top: 20px; padding: 15px; background-color: #01d44b; color: white; border: none; border-radius: 30px; display: none; width: 100%; font-size: 1rem; cursor: pointer; }
     </style>
@@ -156,7 +158,7 @@
 
             <div id="message" style="font-size:1.6rem; font-weight:bold; margin-bottom:10px;"></div>
             
-            <div class="explanation-container" id="explanation-container">
+            <div id="explanation-container">
                 <span style="font-weight:bold; color:#e67e22;">【解説】</span><br>
                 <div id="explanation-text"></div>
             </div>
@@ -231,7 +233,7 @@
             { q: "【検査機器】気密試験を実施する際、配管継手などに石けん水を塗るだけでも配管の温度変化により圧力が降下することがある。", a: true, ex: "（正）石けん水の塗布や周囲 of 温度変化により、配管内の圧力が変動（降下）することがあります。" },
             { q: "【検査機器】機械式自記圧力計は、LPガス設備の配管の気密試験、漏えい試験、調整器の性能検査などに用いられる。", a: true, ex: "（正）機械式自記圧力計は、気密・漏えい試験や性能検査に広く用いられます。" },
             { q: "【安全機器】不完全燃焼警報器（CO警報器）は、燃焼排ガスが直接当たる場所に設置してはならない。", a: true, ex: "（正）CO警報器は、排ガスが直接当たると誤作動や故障の原因となります。" },
-            { q: "【安全機器】ガス漏れ警報器は、通常の使用状態でLPガス濃度が爆発下限界に達した時点で初めて警報を発するよう設計されている。", a: false, ex: "（誤）警報器は、爆発下限界の1/100〜1/4の安全な濃度で鳴るよう設計されています。" },
+            { q: "【安全機器】ガス漏れ警報器は、通常の使用状態状態でLPガス濃度が爆発下限界に達した時点で初めて警報を発するよう設計されている。", a: false, ex: "（誤）警報器は、爆発下限界の1/100〜1/4の安全な濃度で鳴るよう設計されています。" },
             { q: "【安全機器】ガス漏れ自動遮断装置は、ガス漏れ警報器が所定の時間連続して鳴り続けると自動的に遮断弁を閉じてガスの供給を停止する装置である。", a: true, ex: "（正）ガス漏れを検知し続け、自動でガスを遮断する装置の説明として正しいです。" },
             { q: "【安全機器】LPガス用のガス漏れ警報器の検知部の設置位置は、天井面から下方に30cm以内のできるだけ高い位置とする。", a: false, ex: "（誤）LPガスは空気より重いため、検知部は「床面から30cm以内」に設置します。" },
 
@@ -267,7 +269,7 @@
             { q: "【供給】連結用高圧ホースを用いて容器2本と調整器を接続する設備では、容器交換時に消費を中断することなく容器交換を行うことができる。", a: true, ex: "（正）連結用高圧ホースの逆止弁等により、ガスを止めずに容器交換が可能です。" },
             { q: "【供給】大気中の湿度が高いと、容器の外面に結露もしくは着霜しにくくなり、容器への熱の供給が促進される。", a: false, ex: "（誤）湿度が高いと結露・着霜しやすくなります。記述は逆です。" },
             { q: "【供給】LPガス設備の配管等の圧力損失は、その中を流れるLPガスの比重が同じであれば流量が多くなるほど大きくなる。", a: true, ex: "（正）流量の増加に伴い、配管抵抗による圧力損失は大きくなります。" },
-            { q: "【供給】気密試験を行う部分の配管用フレキ管が呼び径15A・長さ50mであったので、電気式ダイヤフラム式自記圧力計を使用して保持時間を2分とした。※1m当たりの容積0.22L", a: false, ex: "（誤）容積は 0.22L × 50m = 11L となり、10Lを超えるため保持時間は5分以上必要です。" },
+            { q: "【供給】気密試験を行う部分の配管用フレキ管が呼び径15A・長さ50mであったので、電気式ダイヤフララム式自記圧力計を使用して保持時間を2分とした。※1m当たりの容積0.22L", a: false, ex: "（誤）容積は 0.22L × 50m = 11L となり、10Lを超えるため保持時間は5分以上必要です。" },
 
             // 問18（防食・供給）
             { q: "【防食】土壌中に設置したマグネシウム陽極と鋼管を電線で接続し、その電位差により生じた防食電流により防食する電気防食法を外部電源法という。", a: false, ex: "（誤）マグネシウム等を使う方法は「流電陽極法」です。外部電源法とは別です。" },
