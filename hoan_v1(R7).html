@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高圧ガス販売二種一問一答（保安管理・ランダム20問） Version１</title> 
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180' width='180' height='180'><rect width='180' height='180' rx='40' fill='%231a365d'/><text x='50%25' y='42%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='white' text-anchor='middle' dominant-baseline='central'>販二</text><text x='50%25' y='72%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='%23ff9f43' text-anchor='middle' dominant-baseline='central'>保１</text></svg>">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180' width='180' height='180'><rect width='180' height='180' rx='40' fill='%231a365d'/><text x='50%25' y='42%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='white' text-anchor='middle' dominant-baseline='central'>販二</text><text x='50%25' y='72%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='%23ff9f43' text-anchor='middle' dominant-baseline='central'>保１</text></svg>">
+    <style>
+        /* 常時表示するヘッダーのスタイル */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #d35400;
+            color: white;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        /* ヘッダーが被らないように全体の余白を調整 */
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; text-align: center; background-color: #eef2f3; padding: 80px 20px 20px 20px; color: #333; }
+        
+        /* コピーライト配置のため position: relative; と padding-bottom を追加 */
+        .card { 
+            background: white; 
+            padding: 30px 30px 50px 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(1, 150, 38, 0.1); 
+            max-width: 450px; 
+            margin: auto; 
+            min-height: 380px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            position: relative; 
+        }
+        
+        /* コピーライトのスタイル設定 */
+        .copyright {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            font-size: 0.8rem;
+            color: #aaa;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .hidden { display: none !important; }
+        .start-title { font-size: 1.8rem; margin-bottom: 20px; color: #2c3e50; line-height: 1.4; }
+        .start-comment { font-size: 1rem; line-height: 1.6; margin-bottom: 30px; text-align: left; background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd; }
+        .primary-btn { padding: 15px 30px; font-size: 1.1rem; background-color: #4CAF50; color: white; border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 0 #388E3C; transition: 0.1s; width: 100%; }
+        .primary-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; }
+        .progress { font-size: 0.8rem; color: #999; margin-bottom: 10px; text-align: right; }
+        .btn-container { display: flex; justify-content: space-around; margin: 20px 0; }
+        .ox-btn { width: 85px; height: 85px; border-radius: 50%; border: none; font-size: 35px; font-weight: bold; cursor: pointer; color: white; transition: 0.2s; }
+        .maru { background-color: #ff4d4d; }
+        .batsu { background-color: #3d5afe; }
+        .ox-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        #question { font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; min-height: 80px; text-align: left; line-height: 1.6; padding: 0 10px; display: flex; align-items: center; }
+        #explanation-container { display: none; background-color: #fff9db; padding: 15px; border-radius: 10px; border-left: 5px solid #fcc419; text-align: left; margin-top: 15px; font-size: 0.95rem; }
+        #nextBtn { margin-top: 20px; padding: 15px; background-color: #01d44b; color: white; border: none; border-radius: 30px; display: none; width: 100%; font-size: 1rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="app-header">販売二種（保安管理）一問一答<br>Version１</div>
+
+    <div class="card">
+        <div id="start-screen">
+            <h1 class="start-title">【販売二種】保安管理技術<br>ランダム20問に挑戦！</h1>
+            <div class="start-comment">
+                令和７年度の保安管理技術試験より抜粋<br>
+                **「２０問」**がランダムに出題されます。<br>
+                繰り返し挑戦して合格力を身につけましょう！<br>
+                <small style="display:block; margin-top:10px; color:#999;">
+                    ※本コンテンツの無断転載・配布を禁じます。
+                </small>
+            </div>
+            <button class="primary-btn" onclick="startApp()">一問一答を始める</button>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <div id="progress-text" class="progress"></div>
+            <div id="question"></div>
+            
+            <div class="btn-container">
+                <button id="btn-maru" class="ox-btn maru" onclick="checkAnswer(true)">○</button>
+                <button id="btn-batsu" class="ox-btn batsu" onclick="checkAnswer(false)">×</button>
+            </div>
+
+            <div id="message" style="font-size:1.6rem; font-weight:bold; margin-bottom:10px;"></div>
+            
+            <div class="explanation-container" id="explanation-container">
+                <span style="font-weight:bold; color:#e67e22;">【解説】</span><br>
+                <div id="explanation-text"></div>
+            </div>
+
+            <button id="nextBtn" onclick="nextQuestion()">次の問題へ ➔</button>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            <h2>結果発表</h2>
+            <p>あなたの正解数は...</p>
+            <div id="final-score" style="font-size:3.5rem; color:#ff4d4d; font-weight:bold; margin: 15px 0;"></div>
+            <p id="rank-message" style="font-weight:bold; color:#333; margin-bottom:25px; font-size:1.1rem;"></p>
+            <button onclick="location.reload()" class="primary-btn">もう一度挑戦する</button>
+        </div>
+
+        <div class="copyright">© TuttoFare-BI H2Qize</div>
+    </div>
+
+    <script>
+        // 全問題データ（計77問完全版）
+        const allQuizData = [
+            // 問1（基礎）
+            { q: "【基礎】元素を元素記号で表すと、水素はH、炭素はC、酸素はSである。", a: false, ex: "（誤）酸素の元素記号はOです。Sは硫黄の記号です。" },
+            { q: "【基礎】分子は、ヘリウムなどの単原子分子の場合を除き、複数の原子が結合してできている。", a: true, ex: "（正）ヘリウムなどの単原子分子以外、分子は複数の原子が結合してできています。" },
+            { q: "【基礎】一定圧力のもとでは、一定量の理想気体の体積は、その絶対温度（熱力学温度）に比例して変化する。", a: true, ex: "（正）シャルルの法則により、一定圧力下で理想気体の体積は熱力学温度(K)に比例します。" },
+            { q: "【基礎】アボガドロの法則によれば、標準状態において、ガス状のプロパン44gの体積とガス状のブタン44gの体積は等しい。", a: false, ex: "（誤）アボガドロの法則では「同モル数の分子」が同体積を占めます。プロパン44gは1molですが、ブタン44gは1mol(58g)ではないため、体積は異なります。" },
+            
+            // 問2（単位）
+            { q: "【単位】1N（ニュートン）は、質量1kgの物体に作用し、1m/sの速度を生じる力である。", a: false, ex: "（誤）1Nは、質量1kgの物体に作用し、1m/s²の「加速度」を生じる力です。" },
+            { q: "【単位】熱力学温度 288Kは、セルシウス温度ではおよそ15℃である。", a: true, ex: "（正）熱力学温度(K) = セルシウス温度(°C) + 273.15 なので、288K - 273 = 15℃です。" },
+            { q: "【単位】ゲージ圧力は、大気圧に絶対圧力を加えたものである。", a: false, ex: "（誤）絶対圧力 = ゲージ圧力 + 大気圧 です。記述は逆になっています。" },
+            { q: "【単位】LPガス1kg当たりの発熱量を50MJとすると、LPガスの消費量1kg/hはおよそ14kWと計算される。", a: true, ex: "（正）1kg/hの消費量はおよそ14kWに相当します。" },
+            
+            // 問3（特性・計算）
+            { q: "【特性】プロパンとブタンを混合したLPガスを容器内で自然気化させて消費するとき、容器から出てくるガスの組成は、容器内の液の組成と同じである。", a: false, ex: "（誤）自然気化では沸点の低い成分（プロパン）が先に気化するため、ガス組成と液組成は異なります。" },
+            { q: "【特性】標準状態におけるブタンの空気に対する比重（ガスの比重）は、およそ2である。", a: true, ex: "（正）ブタンの分子量は58、空気の平均分子量は29。比重は 58 ÷ 29 = 2.0 です。" },
+            { q: "【特性】標準大気圧（0.1013MPa）下において、プロパンの沸点は、ブタンの沸点よりも低い。", a: true, ex: "（正）プロパンの沸点は -42.1℃、ブタンは -0.5℃であり、プロパンの方が低いです。" },
+            { q: "【特性】飽和蒸気圧下の液状のプロパンの15℃における体積を100とすると、そのプロパンの温度が60℃に上昇するとその体積はおよそ120になる。", a: true, ex: "（正）液状のプロパンは温度上昇による膨張が大きく、15℃から60℃に上がると体積は約1.2倍（120）になります。" },
+            { q: "【特性】標準状態においてプロパン65mol%、ブタン35mol%の混合ガス1molを完全燃焼させるために必要な理論空気量は体積でおよそ590Lである。ただし空気中の酸素含有量を 21vol%とする 。", a: true, ex: "（正）①必要な酸素量：プロパン1molに酸素5mol、ブタン1molに6.5mol必要。➁計算：(0.65 × 5) + (0.35 × 6.5) = 3.25 + 2.275 = 5.525 mol（酸素）①理論空気量：5.525 ÷ 0.21 ≒ 26.31 mol体積：26.31 mol × 22.4 L/mol ≒ 589.3 L" },
+
+            // 問4（燃焼）
+            { q: "【燃焼】炭素を含む物質の燃焼では不完全燃焼が起こると有毒な一酸化炭素が発生するので、LPガスの燃焼には、燃焼に必要な空気を十分に供給する必要がある。", a: true, ex: "（正）炭素を含む物質の不完全燃焼により一酸化炭素(CO)が発生します。" },
+            { q: "【燃焼】LPガスが燃焼するときに水が生成されるが、この水が液化するときに放出する凝縮熱（潜熱）を含まない完全燃焼における発熱量を総発熱量という。", a: false, ex: "（誤）水蒸気の凝縮熱を含んだ発熱量を「総発熱量（高発熱量）」、含まないものを「真発熱量（低発熱量）」といいます。" },
+            { q: "【燃焼】常温、大気圧の空気中において、プロパンの爆発下限界は、水素のそれよりも高い。", a: false, ex: "（誤）プロパンの爆発下限界は 2.1vol%、水素は 4.0vol% であり、プロパンの方が低いです。" },
+            { q: "【燃焼】標準状態において、プロパンとブタンをそれぞれ完全燃焼させる場合、同一質量では両者の発熱量はほぼ同じであるが、同一体積ではプロパンの発熱量よりもブタンの発熱量のほうが小さい。", a: false, ex: "（誤）同一体積のガスでは、分子の大きいブタンの方が発熱量は大きくなります。" },
+
+            // 問5（容器）
+            { q: "【容器】容器バルブの安全弁には、ごみや雨水などの侵入を防止するために保護キャップが装着されている。", a: true, ex: "（正）安全弁の作動不良を防ぐため保護キャップが装着されています。" },
+            { q: "【容器】50kg型容器には、一般に継目なし容器が使用されている。", a: false, ex: "（誤）50kg型などの一般家庭用容器は、鋼板を溶接して作る「溶接容器」です。" },
+            { q: "【容器】50kg型容器の材料には、炭素鋼が使用されることが多く、アルミニウム合金は使用できない。", a: false, ex: "（誤）アルミニウム合金製のLPガス容器も存在し、使用可能です。" },
+            { q: "【容器】液状のLPガスを取り出して使う目的の容器（フォークリフト用など）には、液取出し用の容器バルブとともにガス取出し用の容器バルブも取り付けられている。", a: true, ex: "（正）液取出し容器には、液用とガス用の両方のバルブがあります。" },
+
+            // 問6（調整器）
+            { q: "【調整器】自動切替式一体型調整器の最大閉そく圧力は、単段式調整器の最大閉そく圧力に比べて高い。", a: false, ex: "（誤）どちらの調整器も最大閉そく圧力は3.5kPa以下で共通です。" },
+            { q: "【調整器】二段式一次用調整器は、二段式二次用調整器と組み合わせて使用する調整器であり、安全装置（安全弁）が内蔵されていない。", a: true, ex: "（正）二段式一次用調整器には、通常安全弁は内蔵されていません。" },
+            { q: "【調整器】供給設備を設置する際、雪害のおそれがあったため、調整器を容器に直接取り付けない方式（壁掛け等）を採用した。", a: true, ex: "（正）雪害対策として、容器から離れた場所に壁掛け設置するなどの方式があります。" },
+            { q: "【調整器】容器バルブと調整器を高圧ホースで接続する際、高圧ホース内での再液化を考慮して調整器をその入口が容器バルブより10cm低い位置になるよう設置した。", a: false, ex: "（誤）再液化を防ぐため、調整器の入口は容器バルブより「高い」位置にし、下り勾配で接続します。" },
+
+            // 問7（メーター）
+            { q: "【メーター】マイコンメーターは、マイコンメーターSにある計量室などがないため、マイコンメーターSに比べて小型化している。", a: false, ex: "（誤）超音波式のマイコンメーターEは、膜式(S)のような計量室がないため小型です。" },
+            { q: "【メーター】マイコンメーターの復帰安全機能は、遮断後に手動で復帰操作を行った後、下流のガス漏れをチェックし、漏れがあった場合には再びガスを遮断するものである。", a: true, ex: "（正）復帰時に下流の漏えいがないかを確認する機能があります。" },
+            { q: "【メーター】マイコンメーターSの圧力式微少漏えい警告機能は、本体に内蔵されている圧力センサを用いてガス使用中の圧力の変化を監視するものである。", a: false, ex: "（誤）圧力式微少漏えい警告は、ガスを「使用していない時（閉そく時）」の圧力変化を監視します。" },
+            { q: "【メーター】マイコンメーターSの微少漏えい警告機能には流量式と圧力式があり、どちらの方式もマイコンメーターの上流側の漏えいを検知することができる。", a: false, ex: "（誤）メーターは、自らより「下流側」の漏えいしか検知できません。" },
+
+            // 問8（配管）
+            { q: "【配管】TU継手（テーパユニオン継手）が組付けられた燃焼器用ホースを接続機器に接続する際、機器接続部に「TU」と表示があるものに接続した。", a: true, ex: "（正）TU（テーパユニオン）継手は、燃焼器側の表示に合わせて接続します。" },
+            { q: "【配管】配管用フレキ管は、さや管を用いることなく埋設部に使用することができる。", a: false, ex: "（誤）フレキ管を埋設する場合は、さや管に入れる必要があります。" },
+            { q: "【配管】ガス用ポリエチレン管は、防護措置を講じなくても屋外露出配管に使用できる。", a: false, ex: "（誤）ポリエチレン管は紫外線（外光）に弱いため、屋外露出配管での使用は禁止されています。" },
+            { q: "【配管】過電流出安全機構が内蔵されているホースガス栓（ヒューズガス栓）は、LPガス消費量が10kW以下のものと15kW以下のものの2種類がある。", a: true, ex: "（正）ヒューズガス栓には、10kW用と15kW用の2種類があります。" },
+
+            // 問9（検査機器・安全）
+            { q: "【検査機器】気密試験を実施する際、配管継手などに石けん水を塗るだけでも配管の温度変化により圧力が降下することがある。", a: true, ex: "（正）石けん水の塗布や周囲 of 温度変化により、配管内の圧力が変動（降下）することがあります。" },
+            { q: "【検査機器】機械式自記圧力計は、LPガス設備の配管の気密試験、漏えい試験、調整器の性能検査などに用いられる。", a: true, ex: "（正）機械式自記圧力計は、気密・漏えい試験や性能検査に広く用いられます。" },
+            { q: "【安全機器】不完全燃焼警報器（CO警報器）は、燃焼排ガスが直接当たる場所に設置してはならない。", a: true, ex: "（正）CO警報器は、排ガスが直接当たると誤作動や故障の原因となります。" },
+            { q: "【安全機器】ガス漏れ警報器は、通常の使用状態でLPガス濃度が爆発下限界に達した時点で初めて警報を発するよう設計されている。", a: false, ex: "（誤）警報器は、爆発下限界の1/100〜1/4の安全な濃度で鳴るよう設計されています。" },
+            { q: "【安全機器】ガス漏れ自動遮断装置は、ガス漏れ警報器が所定の時間連続して鳴り続けると自動的に遮断弁を閉じてガスの供給を停止する装置である。", a: true, ex: "（正）ガス漏れを検知し続け、自動でガスを遮断する装置の説明として正しいです。" },
+            { q: "【安全機器】LPガス用のガス漏れ警報器の検知部の設置位置は、天井面から下方に30cm以内のできるだけ高い位置とする。", a: false, ex: "（誤）LPガスは空気より重いため、検知部は「床面から30cm以内」に設置します。" },
+
+            // 問10（検査機器2）
+            { q: "【検査機器】ガス検知器には接触燃焼式と半導体式があり、一般に接触燃焼式は経年によりガスに対する感度が若干低下するが、半導体式は経年により感度が上昇する。", a: true, ex: "（正）接触燃焼式は経年で感度が低下し、半導体式は上昇する傾向にあります。" },
+            { q: "【検査機器】電気式（ダイヤフラム式）自記圧力計の電池交換は、周囲のガス漏れの有無に関係なく行うことができる。", a: false, ex: "（誤）電池交換は、ガス漏れのおそれのない安全な場所で行う必要があります。" },
+
+            // 問11〜13（燃焼特性）
+            { q: "【燃焼】ブンゼン燃焼において生じるフラッシュバックは、炎がバーナの口から浮き上がって、ある間隔を隔てて空間で燃焼する現象である。", a: false, ex: "（誤）記述は「リフティング」の説明です。フラッシュバック（逆火）は火がバーナの中に入る現象です。" },
+            { q: "【燃焼】炎が低温の固体などに触れてその温度が下がることによって不完全燃焼が生じることがある。", a: true, ex: "（正）炎が冷やされると不完全燃焼を起こし、一酸化炭素を発生しやすくなります。" },
+            { q: "【燃焼】ブンゼン燃焼では、一次空気を必要としない。", a: false, ex: "（誤）ブンゼン燃焼は、あらかじめ混合する「一次空気」と、周囲から取り込む「二次空気」の両方を使います。" },
+            { q: "【燃焼】イエローチップは、一次空気が不足したときに起こる。", a: true, ex: "（正）一次空気が不足すると、炎の先端が赤黄色になるイエローチップが発生します。" },
+
+            // 問14（燃焼器安全装置）
+            { q: "【燃焼器】圧力スイッチ式の空だき防止装置（深だき防止）は、浴槽に十分な水位がない場合、装置内部のダイヤフラムが動いて接点が開き、ガス通路が閉じることで空だきを防止する。", a: true, ex: "（正）水位（圧力）を検知して空だきを防ぐ仕組みです。" },
+            { q: "【燃焼器】調理油過熱防止装置は、調理油が自然発火する温度に達する前に自動的にガスを遮断し、火災の発生を防止する機能を有する。", a: true, ex: "（正）調理油が自然発火する前（約250℃）にガスを止めます。" },
+            { q: "【燃焼器】フレームロッド式の立ち消え安全装置は、炎の導電性と整流性を利用して炎の検知を行う。", a: true, ex: "（正）フレームロッドは炎の導電性を利用して炎を検知します。" },
+            { q: "【燃焼器】過熱防止装置には、バイメタルまたは温度ヒューズが用いられているものがあるが、いずれの素子も作動した後に温度が下がれば復元する。", a: false, ex: "（誤）バイメタルは復元しますが、温度ヒューズは一度溶断すると復元しません（交換が必要）。" },
+
+            // 問15（燃焼器・施設）
+            { q: "【燃焼器】CF式燃焼器（半密閉式自然排気型）の設置工事に際し、排気筒の曲がりを4か所とした。", a: true, ex: "（正）CF式の排気筒の曲がりは4か所までとされています。" },
+            { q: "【燃焼器】屋外で使用するRF式燃焼器であっても、排ガスが機器の給気に取り入れられ再循環すると不完全燃焼の原因となることがある。", a: true, ex: "（正）屋外式(RF)でも、排ガスを吸い込むと不完全燃焼の原因になります。" },
+            { q: "【燃焼器】排気筒の材料として、ステンレス鋼板SUS304以外のものは使用できない。", a: false, ex: "（誤）SUS304「またはこれと同等以上の耐食性をもつもの」が使用可能です。" },
+            { q: "【燃焼器】FF式燃焼器（密閉式強制排気型）は、燃焼用空気を屋内から取り入れ、燃焼ガスを排気用送風機で強制的に屋外に排出する方式である。", a: false, ex: "（誤）FF式は、燃焼用空気を「屋外（外）」から取り入れます。" },
+
+            // 問16（施設）
+            { q: "【施設】貯蔵施設の明り採りのために屋根材に硬質塩化ビニル板を使用する場合、窓の面積を全体の1/4以下にしなければならない。", a: true, ex: "（正）明り採り窓の面積制限に関する一般的な基準です。" },
+            { q: "【施設】可燃性ガスの貯蔵施設に設置する照明設備を、発火源とならないよう耐圧防爆構造のものとした。", a: true, ex: "（正）可燃性ガスの貯蔵所では、照明は耐圧防爆構造とします。" },
+            { q: "【施設】床面積5m²の貯蔵施設における消火設備として、能力単位A4およびB10である粉末消火器を1個設置した。", a: false, ex: "（誤）消火器は能力単位に関わらず、最低でも「2本以上」設置が必要です。" },
+            { q: "【施設】四方を障壁で囲まれた床面積10m²の貯蔵施設に、床面に接し、かつ外気に面した面積が2500cm²の換気口を2方向にそれぞれ1か所ずつ設けた。", a: false, ex: "（誤）床面積10m²の場合、必要な換気面積は計3000cm²（300cm²/m²）以上必要です。" },
+
+            // 問17（供給）
+            { q: "【供給】連結用高圧ホースを用いて容器2本と調整器を接続する設備では、容器交換時に消費を中断することなく容器交換を行うことができる。", a: true, ex: "（正）連結用高圧ホースの逆止弁等により、ガスを止めずに容器交換が可能です。" },
+            { q: "【供給】大気中の湿度が高いと、容器の外面に結露もしくは着霜しにくくなり、容器への熱の供給が促進される。", a: false, ex: "（誤）湿度が高いと結露・着霜しやすくなります。記述は逆です。" },
+            { q: "【供給】LPガス設備の配管等の圧力損失は、その中を流れるLPガスの比重が同じであれば流量が多くなるほど大きくなる。", a: true, ex: "（正）流量の増加に伴い、配管抵抗による圧力損失は大きくなります。" },
+            { q: "【供給】気密試験を行う部分の配管用フレキ管が呼び径15A・長さ50mであったので、電気式ダイヤフラム式自記圧力計を使用して保持時間を2分とした。※1m当たりの容積0.22L", a: false, ex: "（誤）容積は 0.22L × 50m = 11L となり、10Lを超えるため保持時間は5分以上必要です。" },
+
+            // 問18（防食・供給）
+            { q: "【防食】土壌中に設置したマグネシウム陽極と鋼管を電線で接続し、その電位差により生じた防食電流により防食する電気防食法を外部電源法という。", a: false, ex: "（誤）マグネシウム等を使う方法は「流電陽極法」です。外部電源法とは別です。" },
+            { q: "【供給】最大ガス消費量を求める際に用いられる設備全体の最大ガス消費率、消費者戸数に応じて変化する。", a: true, ex: "（正）戸数が多いほど、全世帯が同時に最大火力を使う確率は下がるため、消費率は変化（低下）します。" },
+            { q: "【供給】自動切替式調整器と50kg型容器を用いた自然気化方式の供給設備において、予備側に設置する容器の本数を使用側の設置本数と同数とした。", a: true, ex: "（正）自然気化方式では、通常、使用側と予備側を同数設置します。" },
+            { q: "【供給】ガス用ポリエチレン管を埋設して使用する場合は、車両荷重などがかかる場所であっても埋設深度を考慮しなくてよい。", a: false, ex: "（誤）車両荷重がかかる場所など、埋設深度の基準を厳格に守る必要があります。" },
+
+            // 問19（バルク）
+            { q: "【バルク】2基のバルク貯槽を相互に接続して設置した際に、バルク貯槽間において液移動が発生しないように対策を施した。", a: true, ex: "（正）均圧管の波動等による液移動（過充填など）を防ぐ対策が必要です。" },
+            { q: "【バルク】バルク貯槽の安全弁の元弁には、インターロック方式（3方弁方式）や手動弁方式がある。", a: true, ex: "（正）安全弁の整備・点検のために元弁（3方弁等）が設けられています。" },
+            { q: "【バルク】新型バルクローリ充てん設備のポンプまたは圧縮機は、軸シール部のない構造のもの以外は使用できない。", a: false, ex: "（誤）軸シール部がある構造でも、ガス漏れ検知装置等の基準を満たせば使用可能です。" },
+            { q: "【バルク】新型バルクローリ充てん設備には、本体に固定された緊急停止スイッチと、離れても操作ができる携帯式の緊急停止スイッチの両方を設けなければならない。", a: true, ex: "（正）新型バルクローリには、本体固定と携帯式の両方の緊急停止スイッチが必要です。" },
+
+            // 問20（販売・移動）
+            { q: "【販売】貯蔵施設内において、20kg型ガス容器を2段積みにして保管した。", a: false, ex: "（誤）容器は原則として「立てて（1段で）」保管します。2段に積み重ねるのは危険です。" },
+            { q: "【販売】LPガスを体積販売する際に、充てん容器をLPガス販売事業者が供給設備に接続した。", a: true, ex: "（正）販売事業者が設備に接続し管理を行うのが体積販売の基本です。" },
+            { q: "【販売】マイコンメーターSを設置した設備の点検において、6か月に1回メーターの警告表示を確認することで、配管の漏えい試験を完全に代替することができる。", a: false, ex: "（誤）マイコンメーターで代替できるのはメーター下流側の漏えい試験等であり、すべての点検を代替できるわけではありません。" },
+            { q: "【販売】不在消費者宅の容器交換において、交換後に容器バルブを閉止しておき、「消費者がガス栓の閉止を確認した上でなければバルブを開けてはならない」旨を記載した文書をバルブに取り付けた。", a: true, ex: "（正）不在時の容器交換における、安全確保のための適切な処置です。" },
+            { q: "【移動】50kg型充てん容器10本をトラックで移動する際、車両に備え付けの赤色合図灯を携行したので、赤旗は携行しなかった。", a: false, ex: "（誤）赤色合図灯（警戒灯）があっても、基準で定められた赤旗を省略することはできません。" },
+            { q: "【移動】50kg型充てん容器10本（質量計約1,000kg）をトラックで移動する際、能力単位B10の粉末消火器2個を携行した。", a: true, ex: "（正）積載量に応じた消火器（この本数ならB10以上が2個等）が必要です。記述の条件なら問題ありません。" },
+            { q: "【移動】50kg型充てん容器1本をトラックで移動するため、その容器を横積みとした。", a: false, ex: "（誤）容器の移動は「立て積み」または「斜め積み」が原則であり、横積みは禁止されています。" },
+            { q: "【移動】車両の車輪止めを確実に行ってから、充てん容器の積みおろしを行った。", a: true, ex: "（正）積みおろし作業時の車両 of 不意な動きを防ぐため、車輪止めは必須です。" }
+        ];
+
+        let quizData = []; // 今回出題する20問を格納する配列
+        let currentIdx = 0;
+        let score = 0;
+
+        // 配列をシャッフルする関数
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // アプリをスタートする関数
+        function startApp() {
+            shuffleArray(allQuizData);
+            quizData = allQuizData.slice(0, 20);
+            currentIdx = 0;
+            score = 0;
+            
+            document.getElementById("start-screen").classList.add("hidden");
+            document.getElementById("quiz-screen").classList.remove("hidden");
+            document.getElementById("result-screen").classList.add("hidden");
+            
+            showQuestion();
+        }
+
+        // 問題を表示する関数
+        function showQuestion() {
+            const data = quizData[currentIdx];
+            document.getElementById("progress-text").innerText = `第 ${currentIdx + 1} 問 / 全 ${quizData.length} 問`;
+            document.getElementById("question").innerText = data.q;
+            document.getElementById("message").innerText = "";
+            document.getElementById("explanation-container").style.display = "none";
+            document.getElementById("nextBtn").style.display = "none";
+            document.getElementById("btn-maru").disabled = false;
+            document.getElementById("btn-batsu").disabled = false;
+        }
+
+        // 回答をチェックする関数
+        function checkAnswer(userChoice) {
+            const data = quizData[currentIdx];
+            const message = document.getElementById("message");
+            
+            if (userChoice === data.a) {
+                message.innerText = "⭕ 正解！";
+                message.style.color = "#ff4d4d";
+                score++;
+            } else {
+                message.innerText = "❌ 不正解...";
+                message.style.color = "#3d5afe";
+            }
+
+            document.getElementById("explanation-text").innerText = data.ex;
+            document.getElementById("explanation-container").style.display = "block";
+            document.getElementById("btn-maru").disabled = true;
+            document.getElementById("btn-batsu").disabled = true;
+            document.getElementById("nextBtn").style.display = "block";
+        }
+
+        // 次の問題に進む関数
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // 結果画面を表示する関数
+        function showResult() {
+            document.getElementById("quiz-screen").classList.add("hidden");
+            document.getElementById("result-screen").classList.remove("hidden");
+            document.getElementById("final-score").innerText = score + " / " + quizData.length;
+            document.getElementById("rank-message").innerText = getRankMessage();
+        }
+
+        // スコアに応じたメッセージを返す関数
+        function getRankMessage() {
+            const rate = score / quizData.length;
+            if (rate === 1) return "完璧！保安管理マスターです！";
+            if (rate >= 0.8) return "素晴らしい！本試験でも確実に合格圏内です。";
+            if (rate >= 0.6) return "あと一歩！間違えた問題を復習しましょう。";
+            return "基礎的な数値やひっかけパターンをもう一度確認してみましょう！";
+        }
+    </script>
+</body>
+</html>
