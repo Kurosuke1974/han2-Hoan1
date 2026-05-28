@@ -4,9 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>高圧ガス販売二種一問一答（保安管理・ランダム20問） Version１</title> 
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180' width='180' height='180'><rect width='180' height='180' rx='40' fill='%231a365d'/><text x='50%25' y='42%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='white' text-anchor='middle' dominant-baseline='central'>販二</text><text x='50%25' y='72%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='%23ff9f43' text-anchor='middle' dominant-baseline='central'>保１</text></svg>">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180' width='180' height='180'><rect width='180' height='180' rx='40' fill='%231a365d'/><text x='50%25' y='42%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='white' text-anchor='middle' dominant-baseline='central'>販二</text><text x='50%25' y='72%25' font-family='sans-serif' font-weight='bold' font-size='42' fill='%23ff9f43' text-anchor='middle' dominant-baseline='central'>保１</text></svg>">
+
+    <script>
+        (function() {
+            // ★アイコンの色を変えたい場合は、ここにあるカラーコードを変更してください！
+            const bgColor = '#1a365d';   // アイコンの背景色（現在は落ち着いたダークブルー）
+            const textColor1 = 'white';   // 1行目「販二」の文字色（現在は白）
+            const textColor2 = '#ff9f43'; // 2行目「保１」の文字色（現在はオレンジ）
+
+            // キャンバスを使って180x180のPNG画像をその場で生成
+            const canvas = document.createElement('canvas');
+            canvas.width = 180;
+            canvas.height = 180;
+            const ctx = canvas.getContext('2d');
+
+            // 背景（角丸四角形）を描画
+            ctx.fillStyle = bgColor;
+            const r = 40; // 角丸の半径
+            ctx.beginPath();
+            ctx.moveTo(r, 0);
+            ctx.lineTo(180 - r, 0);
+            ctx.arcTo(180, 0, 180, r, r);
+            ctx.lineTo(180, 180 - r);
+            ctx.arcTo(180, 180, 180 - r, 180, r);
+            ctx.lineTo(r, 180);
+            ctx.arcTo(0, 180, 0, 180 - r, r);
+            ctx.lineTo(0, r);
+            ctx.arcTo(0, 0, r, 0, r);
+            ctx.closePath();
+            ctx.fill();
+
+            // 文字の共通設定
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = 'bold 44px sans-serif';
+
+            // 1行目「販二」を描画
+            ctx.fillStyle = textColor1;
+            ctx.fillText('販二', 90, 55);
+
+            // 2行目「保１」を描画
+            ctx.fillStyle = textColor2;
+            ctx.fillText('保１', 90, 120);
+
+            // 生成したPNG画像をアイコンとしてリンクタグに設定
+            const iconUrl = canvas.toDataURL('image/png');
+            
+            const appleLink = document.createElement('link');
+            appleLink.rel = 'apple-touch-icon';
+            appleLink.href = iconUrl;
+            document.head.appendChild(appleLink);
+
+            const faviconLink = document.createElement('link');
+            faviconLink.rel = 'icon';
+            faviconLink.type = 'image/png';
+            faviconLink.href = iconUrl;
+            document.head.appendChild(faviconLink);
+        })();
+    </script>
+
     <style>
         /* 常時表示するヘッダーのスタイル */
         .app-header {
@@ -126,7 +182,7 @@
             { q: "【基礎】元素を元素記号で表すと、水素はH、炭素はC、酸素はSである。", a: false, ex: "（誤）酸素の元素記号はOです。Sは硫黄の記号です。" },
             { q: "【基礎】分子は、ヘリウムなどの単原子分子の場合を除き、複数の原子が結合してできている。", a: true, ex: "（正）ヘリウムなどの単原子分子以外、分子は複数の原子が結合してできています。" },
             { q: "【基礎】一定圧力のもとでは、一定量の理想気体の体積は、その絶対温度（熱力学温度）に比例して変化する。", a: true, ex: "（正）シャルルの法則により、一定圧力下で理想気体の体積は熱力学温度(K)に比例します。" },
-            { q: "【基礎】アボガドロの法則によれば、標準状態において、ガス状のプロパン44gの体積とガス状のブタン44gの体積は等しい。", a: false, ex: "（誤）アボガドロの法則では「同モル数の分子」が同体積を占めます。プロパン44gは1molですが、ブタン44gは1mol(58g)ではないため、体積は異なります。" },
+            { q: "【基礎】アボガドロの法則によれば、標準状態において、ガス状 of プロパン44gの体積とガス状のブタン44gの体積は等しい。", a: false, ex: "（誤）アボガドロの法則では「同モル数の分子」が同体積を占めます。プロパン44gは1molですが、ブタン44gは1mol(58g)ではないため、体積は異なります。" },
             
             // 問2（単位）
             { q: "【単位】1N（ニュートン）は、質量1kgの物体に作用し、1m/sの速度を生じる力である。", a: false, ex: "（誤）1Nは、質量1kgの物体に作用し、1m/s²の「加速度」を生じる力です。" },
@@ -233,7 +289,7 @@
             { q: "【移動】50kg型充てん容器10本をトラックで移動する際、車両に備え付けの赤色合図灯を携行したので、赤旗は携行しなかった。", a: false, ex: "（誤）赤色合図灯（警戒灯）があっても、基準で定められた赤旗を省略することはできません。" },
             { q: "【移動】50kg型充てん容器10本（質量計約1,000kg）をトラックで移動する際、能力単位B10の粉末消火器2個を携行した。", a: true, ex: "（正）積載量に応じた消火器（この本数ならB10以上が2個等）が必要です。記述の条件なら問題ありません。" },
             { q: "【移動】50kg型充てん容器1本をトラックで移動するため、その容器を横積みとした。", a: false, ex: "（誤）容器の移動は「立て積み」または「斜め積み」が原則であり、横積みは禁止されています。" },
-            { q: "【移動】車両の車輪止めを確実に行ってから、充てん容器の積みおろしを行った。", a: true, ex: "（正）積みおろし作業時の車両 of 不意な動きを防ぐため、車輪止めは必須です。" }
+            { q: "【移動】車両の車輪止めを確実に行ってから、充てん容器の積みおろしを行った。", a: true, ex: "（正）積みおろし作業時の車両の不意な動きを防ぐため、車輪止めは必須です。" }
         ];
 
         let quizData = []; // 今回出題する20問を格納する配列
